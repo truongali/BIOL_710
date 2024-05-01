@@ -1,0 +1,185 @@
+---
+title: "Restructured_ospC_Markdown"
+author: "Alice"
+date: "2024-04-28"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r cars}
+setwd("C:/Users/14085/Desktop/Swei Lab/Bacterial Load")
+
+ospC<-read.csv("Restructured_ospc.csv")
+library(ggplot2)
+```
+
+
+### One-way ANOVA Analyses
+```{r pressure, echo=FALSE}
+#Genotype
+genotype_aov<-aov(BB_LOAD~GENOTYPE, data=ospC)
+summary(genotype_aov)
+
+
+#Human Invasive Status
+human_inv_aov<-aov(BB_LOAD~HUMAN, data=ospC)
+summary(human_inv_aov)
+
+
+#Site
+site_aov<-aov(BB_LOAD~SITE,data=ospC)
+summary(site_aov)
+
+
+#Year
+year_aov<-aov(BB_LOAD~YEAR, data=ospC)
+summary(year_aov)
+
+
+#County
+county_aov<-aov(BB_LOAD~COUNTY,data=ospC)
+summary(county_aov)
+
+```
+
+### Boxplot Visualization
+```{r}
+genotype_boxplot<-ggplot(data=ospC, aes(x=GENOTYPE,y=BB_LOAD,fill=GENOTYPE))+labs(x="ospC Genotype",y="Bacterial Load", title="Bacterial Load Based on ospC Genotype")+geom_boxplot()+theme_classic()
+genotype_boxplot
+
+genotype_boxplot2<-ggplot(data=ospC, aes(x=GENOTYPE,y=BB_LOAD,fill=GENOTYPE))+facet_wrap(~SITE)+labs(x="ospC Genotype",y="Bacterial Load", title="Bacterial Load Based on ospC Genotype")+geom_boxplot()+theme_classic()
+genotype_boxplot2
+
+human_boxplot<-ggplot(data=ospC, aes(x=HUMAN,y=BB_LOAD,fill=GENOTYPE))+labs(x="Human Invasive Status",y="Bacterial Load", title="Bacterial Load Based on Human Invasive Status")+geom_boxplot()+theme_classic()
+human_boxplot
+
+human_boxplot2<-ggplot(data=ospC, aes(x=HUMAN,y=BB_LOAD,fill=HUMAN))+labs(x="Human Invasive Status",y="Bacterial Load", title="Bacterial Load Based on Human Invasive Status")+geom_boxplot()+theme_classic()
+human_boxplot2
+
+human_boxplot3<-ggplot(data=ospC, aes(x=HUMAN,y=BB_LOAD,fill=HUMAN))+facet_wrap(~SITE)+labs(x="Human Invasive Status",y="Bacterial Load", title="Bacterial Load Based on Human Invasive Status")+geom_boxplot()+theme_classic()
+human_boxplot3
+
+site_boxplot<-ggplot(data=ospC, aes(x=SITE,y=BB_LOAD,fill=SITE))+labs(x="Site",y="Bacterial Load", title="Bacterial Load at Each Site")+geom_boxplot()+theme_classic()
+site_boxplot
+
+site_boxplot2<-ggplot(data=ospC, aes(x=SITE,y=BB_LOAD,fill=SITE))+facet_wrap(~YEAR)+labs(x="Site",y="Bacterial Load", title="Bacterial Load at Each Site")+geom_boxplot()+theme_classic()
+site_boxplot2
+
+year_boxplot<-ggplot(data=ospC, aes(x=YEAR,y=BB_LOAD,fill=YEAR))+labs(x="Site",y="Bacterial Load", title="Bacterial Load Each Year")+geom_boxplot()+theme_classic()
+year_boxplot
+#Looks weird
+
+county_boxplot<-ggplot(data=ospC, aes(x=COUNTY, y=BB_LOAD,fill=COUNTY))+labs(x="Site",y="Bacterial Load", title="Bacterial Load by County")+geom_boxplot()+theme_classic()
+county_boxplot
+```
+
+### 2-Way ANOVAS
+```{r}
+#Genotype + Human
+geno_human<-aov(BB_LOAD~GENOTYPE + HUMAN + GENOTYPE*HUMAN,data=ospC)
+summary (geno_human)
+
+
+#Genotype + Site
+geno_site<-aov(BB_LOAD~GENOTYPE + SITE + GENOTYPE*SITE,data=ospC)
+summary (geno_site)
+
+
+#Genotype + Year
+geno_year<-aov(BB_LOAD~GENOTYPE + YEAR + GENOTYPE*YEAR,data=ospC)
+summary (geno_year)
+
+
+#Genotype + County
+geno_county<-aov(BB_LOAD~GENOTYPE + COUNTY + GENOTYPE*COUNTY,data=ospC)
+summary (geno_county)
+
+
+#Human + Site
+human_site<-aov(BB_LOAD~HUMAN + SITE + HUMAN*SITE,data=ospC)
+summary(human_site)
+
+
+#Human + Year
+human_year<-aov(BB_LOAD~HUMAN + YEAR + HUMAN*YEAR,data=ospC)
+summary(human_year)
+
+
+#Human + County
+human_county<-aov(BB_LOAD~HUMAN + COUNTY + HUMAN*COUNTY,data=ospC)
+summary(human_county)
+
+
+#Site + Year
+site_year<-aov(BB_LOAD~SITE + YEAR + SITE*YEAR,data = ospC)
+summary(site_year)
+
+
+#Site + County
+site_county<-aov(BB_LOAD~SITE + COUNTY + SITE*COUNTY,data = ospC)
+summary(site_county)
+
+
+
+#Year + County
+year_county<-aov(BB_LOAD~YEAR + COUNTY + YEAR*COUNTY,data = ospC)
+summary(year_county)
+ 
+```
+
+### GLMM
+# GLMM wouldn't run with random effects
+```{r}
+#GLMM Analysis
+
+library(glmmTMB)
+hist(ospC$BB_LOAD) 
+
+#Genotype
+geno_glmm<-glmmTMB(BB_LOAD~GENOTYPE, family=nbinom2, data= ospC)
+summary(geno_glmm)
+
+geno_gamma_glmm<-glmmTMB(BB_LOAD~GENOTYPE, family=Gamma(), data= ospC)
+summary(geno_gamma_glmm)
+
+
+#Human
+human_glmm<-glmmTMB(BB_LOAD~HUMAN, family=nbinom2, data= ospC)
+summary(human_glmm)
+
+
+human_gamma_glmm<-glmmTMB(BB_LOAD~HUMAN, family=Gamma(), data= ospC)
+summary(human_gamma_glmm)
+
+
+#Site
+site_glmm<-glmmTMB(BB_LOAD~SITE, family=nbinom2, data= ospC)
+summary(site_glmm)
+
+site_gamma_glmm<-glmmTMB(BB_LOAD~SITE, family=Gamma(), data= ospC)
+summary(site_gamma_glmm)
+
+
+#County
+county_glmm<-glmmTMB(BB_LOAD~COUNTY, family=nbinom2, data= ospC)
+summary(county_glmm)
+ 
+
+county_gamma_glmm<-glmmTMB(BB_LOAD~COUNTY, family=Gamma(), data= ospC)
+summary(county_gamma_glmm)
+
+
+#Year
+year_glmm<-glmmTMB(BB_LOAD~YEAR, family=nbinom2, data= ospC)
+summary(year_glmm)
+
+
+year_gamma_glmm<-glmmTMB(BB_LOAD~YEAR, family=Gamma(), data= ospC)
+summary(year_gamma_glmm)
+```
+
