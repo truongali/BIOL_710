@@ -8,32 +8,43 @@ date: "2024-04-15"
 ---
 
 ```{r setup, include=FALSE}
+options(repos = "https://cloud.r-project.org")
 
+install.packages("viridis")
+library(viridis)
 ```
 
 ### Introduction
 
-# A majority of infectious diseases are zoonotic, they often originate from human-animal interactions both with domestic animals and wildlife (Marie, Gordon, 2023). As humans increasingly encroach on previously untouched habitats through urbanization, changes of land use, etc., their risk of zoonoses increases significantly. Lyme disease is the most common vector-borne disease in North America, with approximately 476,000 people being diagnosed with the disease each year in the United States (Center for Disease Control [CDC], 2023). Since the Lyme disease pathogen Borrelia burgdorferi (Bb) is spread by a vector, Ixodid spp. ticks, the spirochete maintains great genotypic diversity in order to maximize its number of competent hosts. Genetic studies of Bb find that the pathogen’s genetic diversity in its outer surface protein C (ospC) is not only required for host infection but that the pathogen has unique ospC genotypes that are adapted to specific host species for easier infection (Combs, et al., 2023). There are currently 20 known genotypes for ospC, but only four are known to be human-invasive (Earnhart, et al., 2005). As different regions in North America have different host and vector species, climates, and habitats, there are also different strains and genotypes of Bb in each region. 
+A majority of infectious diseases are zoonotic, they often originate from human-animal interactions both with domestic animals and wildlife (Marie, Gordon, 2023). As humans increasingly encroach on previously untouched habitats through urbanization, changes of land use, etc., their risk of zoonoses increases significantly. Lyme disease is the most common vector-borne disease in North America, with approximately 476,000 people being diagnosed with the disease each year in the United States (Center for Disease Control [CDC], 2023). Since the Lyme disease pathogen Borrelia burgdorferi (Bb) is spread by a vector, Ixodid spp. ticks, the spirochete maintains great genotypic diversity in order to maximize its number of competent hosts. Genetic studies of Bb find that the pathogen’s genetic diversity in its outer surface protein C (ospC) is not only required for host infection but that the pathogen has unique ospC genotypes that are adapted to specific host species for easier infection (Combs, et al., 2023). There are currently 20 known genotypes for ospC, but only four are known to be human-invasive (Earnhart, et al., 2005). As different regions in North America have different host and vector species, climates, and habitats, there are also different strains and genotypes of Bb in each region. 
 
-#	There is currently no information on whether different genotypes of Bb are more infectious than others, specifically if human-invasive genotypes yield higher loads of bacteria in infected hosts. Using data collected from oak woodland forests in the California Bay Area from 2018 to 2022, this study utilized digital droplet PCR to quantify absolute counts of Bb from nymphal Ixodes pacificus ticks. Taking into account various factors, such as site and year, we sought to identify whether there was a change in the bacterial burdens of the nymphal ticks depending on the genotype of Bb they were infected with and whether or not that genotype was human invasive.
+There is currently no information on whether different genotypes of Bb are more infectious than others, specifically if human-invasive genotypes yield higher loads of bacteria in infected hosts. Using data collected from oak woodland forests in the California Bay Area from 2018 to 2022, this study utilized digital droplet PCR to quantify absolute counts of Bb from nymphal Ixodes pacificus ticks. Taking into account various factors, such as site and year, we sought to identify whether there was a change in the bacterial burdens of the nymphal ticks depending on the genotype of Bb they were infected with and whether or not that genotype was human invasive.
 
 ### Aims
-# Aim 1: Determine the accuracy of the protocol’s ability to assess bacterial load using digital droplet PCR.
+Aim 1: Determine the accuracy of the protocol’s ability to assess bacterial load using digital droplet PCR.
 
-#	There is currently no known protocol for detecting and quantifying Bb in a DNA sample using ddPCR, but the Swei lab at San Francisco State University has been using a protocol they have adapted from a pre-existing qPCR protocol used to identify Borrelia burgdorferi and Borrelia miyamotoi simultaneously in ticks and mammals (Barbour et al., 2009). The Swei lab’s protocol uses the primers from the pre-existing qPCR protocol, but the cycling conditions and reagents differ. In the case of this project, we are only looking at the protocol's ability to detect and quantify Borrelia burgdorferi in questing nymphal Ixodes pacificus ticks. To assess the accuracy of the newly developed protocol, DNA samples will be run in triplicates so that statistical analyses, such as standard error, may be calculated. Using samples from 2018-2022, and 2007, we will also determine if there is a change in accuracy caused by sample degradation. 
+There is currently no known protocol for detecting and quantifying Bb in a DNA sample using ddPCR, but the Swei lab at San Francisco State University has been using a protocol they have adapted from a pre-existing qPCR protocol used to identify Borrelia burgdorferi and Borrelia miyamotoi simultaneously in ticks and mammals (Barbour et al., 2009). The Swei lab’s protocol uses the primers from the pre-existing qPCR protocol, but the cycling conditions and reagents differ. In the case of this project, we are only looking at the protocol's ability to detect and quantify Borrelia burgdorferi in questing nymphal Ixodes pacificus ticks. To assess the accuracy of the newly developed protocol, DNA samples will be run in triplicates so that statistical analyses, such as standard error, may be calculated. Using samples from 2018-2022, and 2007, we will also determine if there is a change in accuracy caused by sample degradation. 
 
-# Null Hypothesis: The protocol is not precise and is not reliable to use to quantify bacterial load in questing nymphal Ixodes pacificus ticks.
+Null Hypothesis: The protocol is not precise and is not reliable to use to quantify bacterial load in questing nymphal Ixodes pacificus ticks.
 
-# Alternate Hypothesis: The protocol is precise and is reliable to use to detect and quantify bacterial load in  questing nymphal Ixodes pacificus ticks.
+Alternate Hypothesis: The protocol is precise and is reliable to use to detect and quantify bacterial load in  questing nymphal Ixodes pacificus ticks.
 
+### Description of Dataset
+This dataset includes the bacterial loads of questing nymphal Ixodes pacificus ticks that were collected at 6 different sites (China Camp State Park, Marin Municipal Water District Sky Oaks Headquarters, Jack London State Historic Park, Annadel  Park, Sugarloaf Ridge Preserve, and Windy Hill Open Space Preserve) for the years 2007, and 2018-2022. The bacterial loads were obtained using a newly developed ddPCR protocol that detects and quantifies the bacteria, Borrelia burgdorferi in ticks and mammals.
 
+For more details, please visit the GitHub Repository and read the dataset card: https://github.com/truongali/BIOL_710
+
+### Statistical Approach
+
+Because the ddPCR protocol used in this study was a new protocol adapted from a qPCR that performs similar functions (Barbour et al., 2009), there is a need for determining the accuracy of the new ddPCR protocol. Samples were run three times, with the replicated bacterial loads being used to calculate precision of data between replicates. For the statistical analyses, precision was calculated using a mathematical equation that compared standard deviation of the replicates to the average bacterial load of all three replicates combined.
+
+Link to GitHub Repository for more information: https://github.com/truongali/BIOL_710
 ```{r}
 #Aim 1 
 library(ggplot2)
 library(dplyr)
 library(tidyverse)
 
-setwd("C:/Users/14085/Desktop/working_directory")
 OSPC<-read.csv("ospC_bacterial_load.csv")
 restructured_ospC<-read.csv("Restructured_ospc_2.csv")
 
@@ -50,18 +61,21 @@ mean(stats_summary$PRECISION)
 merged_tables<- merge(restructured_ospC, stats_summary, by = "TICK_ID")
 #View(merged_tables)
 
-precise_plot<- ggplot(data=merged_tables,aes(x=TICK_ID,y=BB_LOAD,fill(REPLICATE)))+geom_point()+geom_errorbar(aes(ymin=BB_LOAD-AVG_SD,ymax=BB_LOAD+AVG_SD))+labs(x="Tick ID", y= "Bacterial Load", title = "Precision of Bacterial Load Quantification by ddPCR")+geom_label(x = 45, y = 3500, label = "Average Precision between replicates = 12.81%", fill = NA, color = "black", size = 3, fontface = "bold",label.padding = unit(0.5,"lines"),label.r = unit(0.2,"lines"),label.size = 0.5)+theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust = 1,size = 8))+theme(panel.background = element_rect(fill = "white"),panel.grid.major = element_blank(),panel.grid.minor = element_blank(),axis.line = element_line(color = "black"))
+#Make the replicate column a factor and not integer
+merged_tables$REPLICATE<-as.factor(merged_tables$REPLICATE)
+
+#Plotting the graph
+precise_plot<- ggplot(data=merged_tables,aes(x=TICK_ID, BB_LOAD,y=BB_LOAD))+geom_point(aes(color=REPLICATE))+geom_errorbar(aes(ymin=BB_LOAD-AVG_SD,ymax=BB_LOAD+AVG_SD))+labs(x="Individual Questing IPAC Nymphs", y= "Bacterial Load", title = "Precision of Bacterial Load Quantification by ddPCR")+geom_label(x = 40, y = 3000, label = "Average Precision between replicates = 12.81%", fill = NA, color = "black", size = 3, fontface = "bold",label.padding = unit(0.5,"lines"),label.r = unit(0.2,"lines"),label.size = 0.5)+theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust = 1,size = 8))+scale_x_discrete(labels = c(rep("", nrow(merged_tables) - 1), as.character(merged_tables$TICK_ID[nrow(merged_tables)])))+theme(panel.background = element_rect(fill = "white"),panel.grid.major = element_blank(),panel.grid.minor = element_blank(),axis.line = element_line(color = "black"))+scale_color_viridis_d()
 
 
 precise_plot
 ```
 
-# Aim 2: Assess whether there is a difference in bacterial load in nymphal Ixodes pacificus ticks due to differences in ospC genotypes, human-invasive status, and other factors.
+### Discussion:
 
-# The Swei lab currently has DNA samples from Ixodes pacificus ticks collected from six different field sites around the California Bay Area that have already been tested for Bb prevalence, using nested PCR, and ospC genotype, using a 16S PCR and genomic sequencing. These samples were run in triplicates using the aforementioned ddPCR protocol. Rstudio was then used to determine through one-way and two-way ANOVA, whether ospC genotype or human invasive status had any affect on the bacterial burden of the samples. This study also took into account other factors, such as site, year, and county, when determining the factors that may play a role in bacterial burden found in the nymphal ticks. 
+This figure demonstrates the precision between each replicate of the quantified bacterial loads of Ixodes pacificus ticks using ddPCR. According to the calculations, there is, on average a difference of only 12.81% between the replicates, indicating that the protocol is quite precise in its measurements and can reliably be used to quantify Borrelia burgdorferi in ticks.This protocol can be applied to future studies looking into measuring borrelial loads in ticks.
 
-```{r}
 
-```
 
-.
+
+
